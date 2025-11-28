@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: three-tier-app
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: "https://github.com/SrujanDevigari/3-tier-app-gitops.git"
+    targetRevision: main
+    path: .   # root folder since you have frontend/, backend/, db/
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+
+  syncPolicy:
+    automated:
+      prune: true      # delete resources removed from Git
+      selfHeal: true   # fix drift if someone changes things via kubectl
+    syncOptions:
+      - CreateNamespace=false
