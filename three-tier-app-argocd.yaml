@@ -9,8 +9,10 @@ spec:
   source:
     repoURL: "https://github.com/SrujanDevigari/3-tier-app-gitops.git"
     targetRevision: main
-    path: .   # root folder since you have frontend/, backend/, db/
-
+    path: k8s   # root folder since you have frontend/, backend/, db/
+    directory:
+      recurse: true
+      
   destination:
     server: https://kubernetes.default.svc
     namespace: default
